@@ -1,0 +1,62 @@
+import { galleryItems } from './gallery-items.js';
+// Change code below this line
+
+console.log(galleryItems);
+
+// п 1,6
+
+const galleryContainer = document.querySelector('.gallery');
+const picterListMarkup = createPicterListMarkup(galleryItems);
+
+galleryContainer.insertAdjacentHTML('beforeend', picterListMarkup);
+
+galleryContainer.addEventListener('click', onGalleryContainerClick);
+
+function createPicterListMarkup(picters) {
+  return picters.map(({ preview, original, description }) => {
+    return `
+    <li class="gallery__item">
+      <a class="gallery__link" href="${original}">
+        <img
+          class="gallery__image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>
+    `;
+  })
+    .join('');
+}
+// 2. 
+function onGalleryContainerClick(e) {
+e.preventDefault();
+  const target = e.target;
+  if (target.classList.contains('gallery__image')) {
+    const imageSource = target.dataset.source;
+    // ссылкa на оригинальное изображение
+    console.log("imageSource");
+    const imageAlt = target.alt;
+    // Получение альтернативного текста изображения
+
+    // Создание и открытие модального окна с использованием библиотеки basicLightbox
+    const instance = basicLightbox.create(`
+      <div class="modal">
+        <img src="${imageSource}" alt="${imageAlt}" />
+      </div>
+    `);
+    instance.show();
+
+    // Закрытие модального окна при клике на него или при нажатии на клавишу "Escape"
+    const modalElement = document.querySelector('.modal');
+    modalElement.addEventListener('click', () => {
+      instance.close();
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        instance.close();
+      }
+    });
+  }
+}
