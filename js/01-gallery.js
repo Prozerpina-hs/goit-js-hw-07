@@ -34,11 +34,13 @@ function onGalleryContainerClick(e) {
 e.preventDefault();
   const target = e.target;
   if (target.classList.contains('gallery__image')) {
-    const imageSource = target.dataset.source;
     // ссылкa на оригинальное изображение
+    const imageSource = target.dataset.source;
+
+    // Получение альтернативного текста изображения
     console.log("imageSource");
     const imageAlt = target.alt;
-    // Получение альтернативного текста изображения
+    
 
     // Создание и открытие модального окна с использованием библиотеки basicLightbox
     const instance = basicLightbox.create(`
@@ -53,10 +55,13 @@ e.preventDefault();
     modalElement.addEventListener('click', () => {
       instance.close();
     });
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
+    window.addEventListener('keydown', onEscKeyPress);
+
+    function onEscKeyPress(event) {
+      if (event.code === 'Escape') {
         instance.close();
+        window.removeEventListener('keydown', onEscKeyPress);
       }
-    });
+    }
   }
 }

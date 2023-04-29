@@ -59,3 +59,5 @@ simple-lightbox.min.css.
 
 4.Посмотри в документации секцию «Options» и добавь отображение подписей к изображениям из атрибута alt. Пусть подпись будет снизу и появляется через 250 миллисекунд после открытия изображения.
 
+prozerpina-hs.github.io.
+https://github.com/Prozerpina-hs/goit-js-hw-07

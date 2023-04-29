@@ -7,13 +7,12 @@ const picterListMarkup = createPicterListMarkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML('beforeend', picterListMarkup);
 
-galleryContainer.addEventListener('click', onGalleryContainerClick);
-
 // подпись img
 const lightboxGallery = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
   });
+  
 function createPicterListMarkup(picters) {
   return picters.map(({ preview, original, description }) => {
     return `
@@ -29,13 +28,4 @@ function createPicterListMarkup(picters) {
     `;
   })
     .join('');
-}
-
-function onGalleryContainerClick(e) {
-  // отмена перехода по <a>
-  e.preventDefault();
-  // если click не по img
-  if (e.target.nodeName !== 'IMG') {
-    return;
-  }
 }
